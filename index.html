@@ -11,8 +11,52 @@
 
 </head>
 <body>
+
+    <div class="container">
+<!-- Jumbotron for page title -->
+        <div class="jumbotron text-center">
+            <h1 class="display-4">Coding Railways</h1>
+            <p class="lead">Add a train below to program your next adventure!</p>
+        </div>
+
+<!-- Card to display train data from the database -->
+    <div class="card">
+        <h5 class="card-header">Current Train Schedule</h5>
+        <div class="card-body">
+          <h5>Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        </div>
+    </div>
+
+<!-- Card that contains form to add new train info -->
+
+    <div class="card mt-4">
+        <h5 class="card-header">Add Train</h5>
+        <div class="card-body">
+
+          <form role="form">
+            <div class="form-group row">
+                <label for="name-input"><strong>Train Name</strong></label>
+                <input class="form-control" id="name-input" type="text">
+            </div>
+            <div class="form-group row">
+                <label for="place-input"><strong>Destination</strong></label>
+                <input class="form-control" id="place-input" type="text">
+            </div>
+            <div class="form-group row">
+                <label for="time-input"><strong>First Train Time</strong> (HH:mm - military time)</label>
+                <input class="form-control" id="time-input" type="text">
+            </div>
+            <div class="form-group row">
+                <label for="frequency-input"><strong>Frequency</strong> (in min)</label>
+                <input class="form-control" id="frequency-input" type="text">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+    </div>
+    </div>
  
-    
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
