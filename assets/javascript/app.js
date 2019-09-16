@@ -19,66 +19,72 @@ var database = firebase.database();
 // Initial variables to store info for each train
 var name;
 var place;
-var frequency;
 var firstTime;
+var frequency;
 var nextArrival;
 var minutesAway;
 
-// Click listener for train form submit button. This will capture the values inputted into the form and update database accordingly (addChild).
+// Click listener for train form submit button. This will capture the values inputted into the form and push the values to the database.
 $("#add-train").on("click", function(event){
+
+  // Prevent default behavior when form is submitted (page will not refresh)
   event.preventDefault();
 
+  // Capture values inputted into form and store as variables
   name = $("#name-input").val().trim();
   place = $("#place-input").val().trim();
-  frequency = $("#frequency-input").val().trim();
   firstTime = $("#time-input").val().trim();
-
+  frequency = $("#frequency-input").val().trim();
+  
+  // Log the values captured from the form to the console
   console.log(name);
   console.log(place);
-  console.log(frequency);
   console.log(firstTime);
+  console.log(frequency);
+  
 
+  // Push these values to the database as a new child
   database.ref().push({
     trainName: name,
     destination: place,
-    dbfrequency: frequency,
-    dbfirstTime: firstTime
+    dbfirstTime: firstTime,
+    dbfrequency: frequency
   });
 
+  // Clear the form input fields once form is submitted
   $("#name-input").val("");
   $("#place-input").val("");
-  $("#frequency-input").val("");
   $("#time-input").val("");
-
+  $("#frequency-input").val("");
+  
 });
 
-// Firebase .on("child_added") method that will display database info on index page on page load and update index page when any database values change.
+// .on("child_added") firebase method that will return a snapshot of the info in the database on page load and everytime a child is added.
 database.ref().on("child_added", function(snapshot) {
+
+  // Log the value of the database snapshot to the console
   console.log(snapshot.val());
 
-  // store everything into a vriable
+  // Pull individual pieces of train info from the snapshot and store them in variables that we will use to display info in html
   var tName = snapshot.val().trainName;
   var tPlace = snapshot.val().destination;
   var tFrequency = snapshot.val().dbfrequency;
   var tFirstTime = snapshot.val().dbfirstTime;
   
-  // ******Next arrival and Minutes Away Calculations here******
+  // ******Next Arrival and Minutes Away Calculations here******
 
-  // display results inside the table
-  var tr = $("<tr>");
+  // Create variable for new table row element that we will then add train info to
+  var newRow = $("<tr>");
 
-  // create vars to hold table elements and content
-  tr.append(
-    "<td>" + tName + "</td>",
-    "<td>" + tPlace + "</td>",
-    "<td>" + tFrequency + "</td>",
-    "<td> To Be Calculated </td>",
-    "<td> To Be Calculated </td>"
+  // Attach train info from database snapshot to the new row element
+  newRow.append(
+    $("<td>").text(tName),
+    $("<td>").text(tPlace),
+    $("<td>").text(tFrequency)
   )
 
-  $("tbody").append(tr);
-  // append all table data to table row
-  // append to tbody element
+  // Attach filled new row element to the table body
+  $("tbody").append(newRow);
   
 });
 
