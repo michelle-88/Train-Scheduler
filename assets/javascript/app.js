@@ -10,3 +10,22 @@ var firebaseConfig = {
   };
 
   firebase.initializeApp(firebaseConfig);
+
+// Variable to reference Firebase database
+var database = firebase.database();
+
+// Initial variables to store info for each train
+var name = "";
+var place = "";
+var frequency = 0;
+var nextArrival = "";
+var minutesAway = 0;
+
+// Click listener for train form submit button. This will capture the values inputted into the form and update database accordingly (addChild).
+
+
+// Firebase .on("value") method that will display database info on index page on page load and update index page when any database values change.
+
+// Function using moment.js, current time (on page load?), and frequency to calculate next train arrival time
+
+// Function using moment.js, next arrival time, and current time (on page load?) to calculate minutes away
