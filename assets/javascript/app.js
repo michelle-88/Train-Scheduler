@@ -41,7 +41,6 @@ $("#add-train").on("click", function(event){
   console.log(place);
   console.log(firstTime);
   console.log(frequency);
-  
 
   // Push these values to the database as a new child
   database.ref().push({
@@ -72,7 +71,13 @@ database.ref().on("child_added", function(snapshot) {
   var tFirstTime = snapshot.val().dbfirstTime;
   
   // ******Next Arrival and Minutes Away Calculations here******
-
+  // var currentTime = moment().format("HH:mm");
+  // console.log(currentTime);
+  
+  // var timeDiff = currentTime.diff(moment(tFirstTime, "X"), "minutes");
+  // console.log(timeDiff);
+  
+  
   // Create variable for new table row element that we will then add train info to
   var newRow = $("<tr>");
 

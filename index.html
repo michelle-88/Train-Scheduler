@@ -7,8 +7,13 @@
     <title>Train Scheduler</title>
     
     <!-- Link for Bootstrap CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-T5jhQKMh96HMkXwqVMSjF3CmLcL1nT9//tCqu9By5XSdj7CwR0r+F3LTzUdfkkQf" crossorigin="anonymous">
+    
+    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Firebase Core JavaScript Link -->
     <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
@@ -20,16 +25,18 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="container mb-4">
 
 <!-- Jumbotron for page title -->
         <div class="jumbotron text-center">
-            <h1 class="display-4">Coding Railways</h1>
+            <div class="py-2" id="text-background">
+            <h1 class="display-3">Coding Railways</h1>
             <p class="lead">Add a train below to program your next adventure!</p>
+            </div>
         </div>
 
 <!-- Card to display train data from the database -->
-    <div class="card">
+    <div class="card border-info">
         <h5 class="card-header">Current Train Schedule</h5>
         <div class="card-body">
             <table class="table">
@@ -50,11 +57,11 @@
 
 <!-- Card that contains form to add new train info -->
 
-    <div class="card mt-4">
+    <div class="card border-info mt-4">
         <h5 class="card-header">Add Train</h5>
         <div class="card-body">
 
-          <form role="form">
+          <form role="form" class="px-3">
             <div class="form-group row">
                 <label for="name-input"><strong>Train Name</strong></label>
                 <input class="form-control" id="name-input" type="text">
@@ -71,14 +78,11 @@
                 <label for="frequency-input"><strong>Frequency</strong> (in min)</label>
                 <input class="form-control" id="frequency-input" type="text">
             </div>
-            <button id="add-train" type="submit" class="btn btn-primary">Submit</button>
+            <button id="add-train" type="submit" class="btn btn-info">Submit</button>
           </form>
         </div>
     </div>
     </div>
- 
-  <!-- jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!-- JS for Bootstrap -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
