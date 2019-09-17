@@ -70,13 +70,26 @@ database.ref().on("child_added", function(snapshot) {
   var tFrequency = snapshot.val().dbfrequency;
   var tFirstTime = snapshot.val().dbfirstTime;
   
-  // ******Next Arrival and Minutes Away Calculations here******
-  // var currentTime = moment().format("HH:mm");
-  // console.log(currentTime);
+  // Calculations for Next Arrival time and Minutes Away
+  // Convert train frequency value from database to integer and format time of first train so they can be used in calculations
+  var tFrequencyConverted = parseInt(tFrequency);
+  var tFirstTimeConverted = moment(tFirstTime, "HH:mm").subtract(1, "years");
+
+  // Calculate the difference between current time and time of first train
+  var diffTime = moment().diff(moment(tFirstTimeConverted), "minutes");
+  console.log("The difference in time is: " + diffTime);
+
+  // Use modulus to calculate remainder when difference in time is divided by the train frequency value
+  var tRemainder = diffTime % tFrequencyConverted;
+
+  // Calculate minutes until next train arrives by subtracting the previously calculated remainder from train frequency value
+  var minutesAway = tFrequencyConverted - tRemainder;
+
+  // Calculate next arrival time by adding previously calculated minutesAway to current time
+  var nextArrivalCalc = moment().add(minutesAway, "minutes");
   
-  // var timeDiff = currentTime.diff(moment(tFirstTime, "X"), "minutes");
-  // console.log(timeDiff);
-  
+  // Change next arrival time to readable format to display on page
+  var nextArrival = moment(nextArrivalCalc).format("hh:mm A")
   
   // Create variable for new table row element that we will then add train info to
   var newRow = $("<tr>");
@@ -85,16 +98,14 @@ database.ref().on("child_added", function(snapshot) {
   newRow.append(
     $("<td>").text(tName),
     $("<td>").text(tPlace),
-    $("<td>").text(tFrequency)
+    $("<td>").text(tFrequency),
+    $("<td>").text(nextArrival),
+    $("<td>").text(minutesAway)
   )
 
   // Attach filled new row element to the table body
   $("tbody").append(newRow);
   
 });
-
-// Function using moment.js, current time (on page load?), and frequency to calculate next train arrival time
-
-// Function using moment.js, next arrival time, and current time (on page load?) to calculate minutes away
 
 });
