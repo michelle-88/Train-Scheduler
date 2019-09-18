@@ -84,12 +84,14 @@ database.ref().on("child_added", function(snapshot) {
 
   // Calculate minutes until next train arrives by subtracting the previously calculated remainder from train frequency value
   var minutesAway = tFrequencyConverted - tRemainder;
-
+  console.log("The next train will arrive in " + minutesAway + " minutes.");
+  
   // Calculate next arrival time by adding previously calculated minutesAway to current time
   var nextArrivalCalc = moment().add(minutesAway, "minutes");
   
   // Change next arrival time to readable format to display on page
   var nextArrival = moment(nextArrivalCalc).format("hh:mm A")
+  console.log("The next train will arrive at " + nextArrival);
   
   // Create variable for new table row element that we will then add train info to
   var newRow = $("<tr>");
