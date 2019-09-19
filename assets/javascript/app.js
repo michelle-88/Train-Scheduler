@@ -23,6 +23,7 @@ var firstTime;
 var frequency;
 var nextArrival;
 var minutesAway;
+var trainNum = 0;
 
 // Click listener for train form submit button. This will capture the values inputted into the form and push the values to the database.
 $("#add-train").on("click", function(event){
@@ -47,7 +48,8 @@ $("#add-train").on("click", function(event){
     trainName: name,
     destination: place,
     dbfirstTime: firstTime,
-    dbfrequency: frequency
+    dbfrequency: frequency,
+    trainIndex: trainNum
   });
 
   // Clear the form input fields once form is submitted
@@ -94,20 +96,39 @@ database.ref().on("child_added", function(snapshot) {
   console.log("The next train will arrive at " + nextArrival);
   
   // Create variable for new table row element that we will then add train info to
+  // Create Remove Button for each train entry
   var newRow = $("<tr>");
+  var newBtn = $("<button>");
+  newRow.attr("id", "train-" + trainNum);
+  newBtn.attr("train-num", trainNum);
+  newBtn.addClass("remove btn btn-outline-danger btn-sm");
+  newBtn.text("X");
 
-  // Attach train info from database snapshot to the new row element
+  // Attach train info from database snapshot to the new row element. Also attach newly created Remove Button.
   newRow.append(
     $("<td>").text(tName),
     $("<td>").text(tPlace),
     $("<td>").text(tFrequency),
     $("<td>").text(nextArrival),
-    $("<td>").text(minutesAway)
+    $("<td>").text(minutesAway),
+    $("<td>").html(newBtn)
   )
 
   // Attach filled new row element to the table body
   $("tbody").append(newRow);
+
+  // Increase trainNum variable for next train. This will be assigned as a tracking number to each train in the HTML and database.
+  trainNum++;
   
+});
+
+// Click listener for Remove Buttons
+$(document).on("click", ".remove", function(){
+  // Grab train tracking number from Remove Button's attribute
+  var trainToRemove = $(this).attr("train-num");
+
+  // Remove entire table row whose train id matches this tracking number
+  $("#train-" + trainToRemove).remove();
 });
 
 });
